@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>User List</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Ban Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.username }}</td>
+            <td>{{ 'Banned' if user.banned else 'Active' }}</td>
+            <td>
+                {% if not user.banned and user.username != 'admin' %}
+                <form action="{{ url_for('ban_user', user_id=user.id) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-danger">Ban</button>
+                </form>
+                <form action="{{ url_for('ban_ip', user_id=user.id) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-warning">Ban IP</button>
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{{ url_for('index') }}" class="btn btn-primary">Back to Chat</a>
+{% endblock %}
+
