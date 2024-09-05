@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="messages">
+    {% for message in messages %}
+    <p><strong>{{ message.username }}:</strong> {{ message.content }}</p>
+    {% endfor %}
+</div>
+<div class="input-box">
+    <form action="{{ url_for('send') }}" method="POST" class="d-flex w-100">
+        <input type="text" name="content" placeholder="메시지를 입력하세요..." class="form-control">
+        <button type="submit" class="btn btn-primary">전송</button>
+    </form>
+</div>
+{% endblock %}
